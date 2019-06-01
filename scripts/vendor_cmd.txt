@@ -1,0 +1,4 @@
+govendor init
+govendor list
+govendor fetch +m
+govendor sync
