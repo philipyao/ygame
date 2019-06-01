@@ -1,5 +1,6 @@
 GO           ?= go
 FIRST_GOPATH := $(firstword $(subst :, ,$(shell $(GO) env GOPATH)))
+$(info GOPATH:  $(FIRST_GOPATH))
 GO_VERSION   ?= $(shell $(GO) version)
 
 PROJ_NAME=$(shell basename "$(PWD)")
@@ -54,7 +55,7 @@ prebuild:
 
 .PHONY: postbuild
 postbuild:
-	@echo "postbuild"
+	@echo "\033[32;1mpostbuild \033[0m"
 
 .PHONY: build
 ## build: build all server binaries in the `cmd` directory
@@ -80,6 +81,7 @@ test:
 .PHONY: clean
 ## clean: clean build files
 clean:
+	@go clean
 	@rm $(PROJ_BIN_PATH)/* -rf
 
 #todo
