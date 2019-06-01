@@ -60,6 +60,11 @@ postbuild:
 ## build: build all server binaries in the `cmd` directory
 build: prebuild $(CMDS) postbuild
 
+.PHONY: build-windows
+build-windows:
+	@echo "build windows"
+	@GOARCH=amd64 GOOS=windows go build ${LDFLAGS} -o $(PROJ_BIN_PATH)/minclient.exe ./cmd/minclient
+
 #
 # Define targets for commands
 #
@@ -71,6 +76,11 @@ $(CMDS):
 ## test: launch tests
 test: 
 	@for d in $$(go list ./... | grep -v /vendor/); do go test -v $${d}; done
+
+.PHONY: clean
+## clean: clean build files
+clean:
+	@rm $(PROJ_BIN_PATH)/* -rf
 
 #todo
 #fmt
